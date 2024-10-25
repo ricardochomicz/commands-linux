@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 class CommandService
 {
 
+    public function index(array $data)
+    {
+        $commands = Command::filter($data);
+        return $commands->paginate();
+    }
+
     public function store($data)
     {
         try {
