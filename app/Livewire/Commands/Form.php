@@ -21,6 +21,15 @@ class Form extends Component
 
         $this->output = shell_exec($this->input) ?? 'Erro ao executar o comando.';
     }
+
+    // Getter para limitar a descrição
+    public function getShortDescriptionProperty()
+    {
+        return strlen($this->description) > 100
+            ? substr($this->description, 0, 100) . '...'
+            : $this->description;
+    }
+
     public function render()
     {
         return view('livewire.commands.form');
