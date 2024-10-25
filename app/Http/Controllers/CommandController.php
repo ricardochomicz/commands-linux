@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Command;
+use App\Services\CommandService;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
+    public function __construct(protected CommandService $commandService) {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('commands.index');
+        $view = [];
+        return view('commands.index', $view);
     }
 
     /**
@@ -27,7 +31,10 @@ class CommandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $command = $this->commandService->store($request->all());
+        if (!$command) return back();
+
+        return redirect()->route('commands.index');
     }
 
     /**
